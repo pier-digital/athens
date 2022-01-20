@@ -141,7 +141,7 @@ module Athens
         metadata.column_info.each_with_index do |col, index|
           data = row.data[index].var_char_value
           nullable = ["UNKNOWN", "NULLABLE"].include?(col.nullable)
-          
+
           if nullable && data.nil?
             mapped << data
           elsif !nullable && data.nil?
@@ -151,7 +151,7 @@ module Athens
             when 'tinyint', 'smallint', 'int', 'integer', 'bigint'
               mapped << data.to_i
             when 'timestamp'
-              mapped << Time.parse(data)
+              mapped << Time.zone.parse(data)
             when 'varchar', 'string'
               mapped << data
             when 'float', 'double'
